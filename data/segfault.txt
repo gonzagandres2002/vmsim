@@ -1,0 +1,4 @@
+# Acceso fuera de toda región reservada: el simulador se detiene con un error que indica la línea.
+alloc 4096
+write 0 1
+read 4096

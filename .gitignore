@@ -1,0 +1,5 @@
+vmsim
+vmsim.dSYM/
+tests/run_tests
+tests/run_tests.dSYM/
+.DS_Store

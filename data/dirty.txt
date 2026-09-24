@@ -1,0 +1,11 @@
+# Bit dirty, swap y free. Ejecutar con 2 marcos: ./vmsim data/dirty.txt fifo 8 --trace
+alloc 12288      # 3 páginas: VPN 0, 1 y 2
+write 0 7        # fallo: marco 0
+write 4096 8     # fallo: marco 1 (la memoria queda llena)
+read 8192        # fallo: expulsa la página 0, que está sucia -> se escribe a disco
+read 0           # fallo: expulsa la 1 (sucia -> disco); la 0 vuelve del disco con su 7
+read 4096        # fallo: expulsa la 2 (limpia -> se descarta); la 1 vuelve con su 8
+read 0           # hit
+free 0           # libera la región: los marcos de las páginas 0 y 1 quedan libres
+alloc 4096       # nueva región de una página: VPN 3
+write 12288 9    # fallo sin reemplazo: hay marcos libres

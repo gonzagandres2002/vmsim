@@ -1,0 +1,6 @@
+# Ejemplo del enunciado: una región de dos páginas, dos fallos y dos aciertos.
+alloc 8192
+write 0 42
+write 4096 99
+read 0
+read 4096

@@ -1,0 +1,39 @@
+digraph layers {
+  graph [rankdir=TB, splines=ortho, nodesep=0.6, ranksep=0.7, bgcolor="white", pad=0.3, dpi=200];
+  node  [shape=plaintext, fontname="Helvetica", fontsize=13, fontcolor="#1f2328"];
+  edge  [color="#5c6370", penwidth=1.6, arrowsize=0.8];
+
+  cli [label=<
+    <table border="1" cellborder="0" cellpadding="6" cellspacing="0" color="#5c6370">
+      <tr><td align="center"><b><font point-size="17">INTERFAZ (CLI)</font></b></td></tr>
+      <tr><td align="center"><font face="Courier" point-size="12">src/main.cpp</font></td></tr>
+      <tr><td align="center">lee argumentos, elige la política, imprime traza y estadísticas</td></tr>
+    </table>>];
+
+  infra [label=<
+    <table border="1" cellborder="0" cellpadding="6" cellspacing="0" color="#5c6370">
+      <tr><td align="center"><b><font point-size="17">INFRAESTRUCTURA</font></b></td></tr>
+      <tr><td align="center"><font face="Courier" point-size="12">src/infrastructure/</font></td></tr>
+      <tr><td align="center">program_file: leer y validar<br/>el archivo de instrucciones</td></tr>
+    </table>>];
+
+  app [label=<
+    <table border="1" cellborder="0" cellpadding="6" cellspacing="0" color="#5c6370">
+      <tr><td align="center"><b><font point-size="17">APLICACIÓN</font></b></td></tr>
+      <tr><td align="center"><font face="Courier" point-size="12">src/application/</font></td></tr>
+      <tr><td align="center">simulator: ejecuta las<br/>instrucciones y arma la traza</td></tr>
+    </table>>];
+
+  domain [label=<
+    <table border="1" cellborder="0" cellpadding="6" cellspacing="0" color="#5c6370">
+      <tr><td align="center"><b><font point-size="17">DOMINIO</font></b></td></tr>
+      <tr><td align="center"><font face="Courier" point-size="12">src/domain/</font></td></tr>
+      <tr><td align="center">AddressLayout · PageTable · PhysicalMemory · VirtualMemory</td></tr>
+      <tr><td align="center">ReplacementPolicy (interfaz) · Fifo · Lru · Stats · Operation</td></tr>
+      <tr><td align="center">solo librería estándar: no lee archivos ni imprime</td></tr>
+    </table>>];
+
+  { rank=same; infra; app; }
+  cli -> infra; cli -> app; cli -> domain;
+  infra -> domain; app -> domain;
+}

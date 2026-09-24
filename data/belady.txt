@@ -1,0 +1,19 @@
+# Anomalía de Belady: con FIFO, MÁS memoria produce MÁS fallos.
+# Cadena clásica 1 2 3 4 1 2 5 1 2 3 4 5 (aquí, páginas 0..4).
+#   ./vmsim data/belady.txt fifo 12   -> 3 marcos: 9 fallos
+#   ./vmsim data/belady.txt fifo 16   -> 4 marcos: 10 fallos (!)
+#   ./vmsim data/belady.txt lru 12    -> 3 marcos: 10 fallos
+#   ./vmsim data/belady.txt lru 16    -> 4 marcos: 8 fallos (LRU nunca empeora con más memoria)
+alloc 20480
+read 0
+read 4096
+read 8192
+read 12288
+read 0
+read 4096
+read 16384
+read 0
+read 4096
+read 8192
+read 12288
+read 16384
